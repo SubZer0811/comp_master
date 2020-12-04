@@ -53,8 +53,8 @@ def decompress_text():
 	
 	# opening a choice box using our msg and choices 
 	method = choicebox(msg, choices = choices)
-	send_recv.send_file(file, sock, "decomp" + method)
-	# send_recv.recv_file('comp', sock)
+	send_recv.send_file(file, sock, "decomp_" + method)
+	send_recv.recv_file('comp', sock)
 
 def compress_image():
 
@@ -82,8 +82,10 @@ def decompress():
 
 	if(reply == "Text"):
 		decompress_text()
-	if(reply == "Text"):
-		decompress_archive()
+	if(reply == "Archive"):
+		decompress_multiple()
+
+	
 
 def compress_multiple_files():
 

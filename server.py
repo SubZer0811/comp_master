@@ -4,6 +4,10 @@ import huffman.compressor
 import lzw.compressor
 import shannon.compressor
 import rle.compressor
+import huffman.decompressor
+import lzw.decompressor
+import shannon.decompressor
+import rle.decompressor
 from img_com import compressMe
 import config
 import con
@@ -46,7 +50,7 @@ elif(method[:5] == "comp_"):
 else:
 
 	if(method[7:] == "Huffman"):
-		result = huffman.decompressor.decompress("./r",".")
+		result = huffman.decompressor.decompress("./recvd",".")
 	if(method[7:] == "Shannon-Fano"):
 		result = shannon.decompressor.decompress("./recvd",".")
 	if(method[7:] == "LZW"):

@@ -70,3 +70,27 @@ def recv_file(recv_path, client_socket):
 
 	return method
 
+def send_multiple_files(file_list, s, TYPE='comp'):
+
+	# while()
+
+	print(f"Files to be sent: {filename}")
+	print(f"Sending Files: {filename}")
+	filesize = os.path.getsize(filename)
+	time.sleep(1)
+	if(TYPE[0:2]=="img"):
+		pass
+
+	s.send(f"{filename}{SEPARATOR}{filesize}{SEPARATOR}{TYPE}".encode('utf-8'))
+
+	print(s.recv(8))
+	print("SENT HEADER")
+	with open(filename, "rb") as f:
+		while True:
+			bytes_read = f.read(1)
+			if not bytes_read:
+				s.send(b'\x00')
+				break
+			s.send(bytes_read)
+		f.close()
+	print("Completed Sending")
