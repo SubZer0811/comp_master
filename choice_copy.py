@@ -11,6 +11,7 @@ SEPARATOR = "<SEPARATOR>"
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect((HOST, PORT))
 
+# sock.setblocking(False)
 def compress():
 	print("Inside Compress")
 
@@ -20,7 +21,8 @@ def compress():
 	msg = "Select any one option"
 	
 	# opening a choice box using our msg and choices 
-	reply = choicebox(msg, choices = choices)
+	# reply = choicebox(msg, choices = choices)
+	reply = "Text"
 
 	if(reply == "Text"):
 		compress_text()
@@ -29,14 +31,17 @@ def compress():
 
 def compress_text():
 
-	file = fileopenbox()
+	# file = fileopenbox()
 	choices = ["Huffman", "Shannon-Fano", "LZW", "RLE"]
   
 	# mesaage / question to be asked
 	msg = "Select compression Algorithm"
 	
 	# opening a choice box using our msg and choices 
-	method = choicebox(msg, choices = choices)
+	# method = choicebox(msg, choices = choices)
+	method = "Huffman"
+	file = "source.txt"
+
 	send_recv.send_file(file, sock, "comp_" + method)
 	time.sleep(1)
 	send_recv.recv_file("compressessasads", sock)
@@ -84,18 +89,17 @@ def decompress():
 
 def compress_multiple_files():
 
-	file_list = fileopenbox(multiple=True)
+	openfiles = fileopenbox("Welcome", "COPR", filetypes= "*.txt", multiple=True)
 	choices = ["bz2", "gz", "xz"]
 	msg = "Select any one option"
-	mode = choicebox(msg, choices = choices)
+	reply = choicebox(msg, choices = choices)
 
-	if(mode == "bz2"):
+	if(reply == "bz2"):
 		compress_multiple_files_bz2()
-	if(mode == "gz"):
+	if(reply == "gz"):
 		compress_multiple_files_gz()
-	if(mode == "xz"):
+	if(reply == "xz"):
 		compress_multiple_files_xz()
-	send_recv.send_multiple_files(file_list, sock, f"comp_multi_{mode}")
 	
 # def decompress_archive():
 
@@ -104,7 +108,7 @@ def compress_multiple_files():
 if __name__ == "__main__":
 	
 	# message to be displayed  
-	text = "Select one of the following options:"
+	text = "Select on of the following options:"
 	
 	# window title 
 	title = "Window Title GfG"
@@ -123,7 +127,8 @@ if __name__ == "__main__":
 	button_list.append(button2)
 	
 	# creating a button box 
-	output = buttonbox(text, title, button_list)
+	# output = buttonbox(text, title, button_list)
+	output = "Compress"
 	
 	if(output == "Compress"):
 		compress()

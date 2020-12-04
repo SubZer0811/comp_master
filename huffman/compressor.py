@@ -17,6 +17,7 @@ def compress(input_file, output_path):
     print(output_file+" aa")
     with open(input_file, 'r') as f:
         data = f.read()
+        f.close()
 
     # Get frequency table from data
     frequencies = collections.Counter(data)
@@ -28,6 +29,7 @@ def compress(input_file, output_path):
     with open(output_file, 'wb') as out:
         # Serialize data to file
         pickle.dump((frequencies, byte_data), out)
+        out.close()
     return output_file
 
 
