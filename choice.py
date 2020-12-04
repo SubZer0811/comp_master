@@ -67,6 +67,7 @@ def compress_image():
 
 	output=integerbox(text,title,d_int,lower,upper)
 	send_recv.send_file(file,sock,"img"+"_"+str(output))
+	send_recv.recv_file("asdfasdfasdf.jpeg", sock)
 
 
 def decompress():

@@ -3,15 +3,16 @@ import huffman.compressor
 import socket
 import send_recv
 import time
+import config
+import con
 
-HOST = '127.0.0.1'
-PORT = 45000
+# config.HOST = '127.0.0.1'
+# config.PORT = 45000
 SEPARATOR = "<SEPARATOR>"
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect((HOST, PORT))
+sock.connect((config.HOST, config.PORT))
 
-# sock.setblocking(False)
 def compress():
 	print("Inside Compress")
 
@@ -22,7 +23,7 @@ def compress():
 	
 	# opening a choice box using our msg and choices 
 	# reply = choicebox(msg, choices = choices)
-	reply = "Text"
+	reply = "Image"
 
 	if(reply == "Text"):
 		compress_text()
@@ -31,17 +32,14 @@ def compress():
 
 def compress_text():
 
-	# file = fileopenbox()
+	file = fileopenbox()
 	choices = ["Huffman", "Shannon-Fano", "LZW", "RLE"]
   
 	# mesaage / question to be asked
 	msg = "Select compression Algorithm"
 	
 	# opening a choice box using our msg and choices 
-	# method = choicebox(msg, choices = choices)
-	method = "Huffman"
-	file = "source.txt"
-
+	method = choicebox(msg, choices = choices)
 	send_recv.send_file(file, sock, "comp_" + method)
 	time.sleep(1)
 	send_recv.recv_file("compressessasads", sock)
@@ -56,20 +54,24 @@ def decompress_text():
 	
 	# opening a choice box using our msg and choices 
 	method = choicebox(msg, choices = choices)
+	time.sleep(1)
 	send_recv.send_file(file, sock, "decomp" + method)
 	# send_recv.recv_file('comp', sock)
 
 def compress_image():
 
-	file = fileopenbox()
+	# file = fileopenbox()
+	file = "local_test_files/doom_org.jpeg"
 	text="Enter quality factor 10 - 100"
 	title="Image compression"
 	d_int = 75
 	lower = 10
 	upper=100
 
-	output=integerbox(text,title,d_int,lower,upper)
-	send_recv.send_file(file,sock,"img"+"{SEPARATOR}"+str(output))
+	# output=integerbox(text,title,d_int,lower,upper)
+	output = 75
+	send_recv.send_file(file,sock,"img"+"_"+str(output))
+	send_recv.recv_file("asdfasdfasdf", sock)
 
 
 def decompress():
@@ -89,17 +91,18 @@ def decompress():
 
 def compress_multiple_files():
 
-	openfiles = fileopenbox("Welcome", "COPR", filetypes= "*.txt", multiple=True)
+	file_list = fileopenbox(multiple=True)
 	choices = ["bz2", "gz", "xz"]
 	msg = "Select any one option"
-	reply = choicebox(msg, choices = choices)
+	mode = choicebox(msg, choices = choices)
 
-	if(reply == "bz2"):
+	if(mode == "bz2"):
 		compress_multiple_files_bz2()
-	if(reply == "gz"):
+	if(mode == "gz"):
 		compress_multiple_files_gz()
-	if(reply == "xz"):
+	if(mode == "xz"):
 		compress_multiple_files_xz()
+	send_recv.send_multiple_files(file_list, sock, f"comp_multi_{mode}")
 	
 # def decompress_archive():
 
@@ -108,7 +111,7 @@ def compress_multiple_files():
 if __name__ == "__main__":
 	
 	# message to be displayed  
-	text = "Select on of the following options:"
+	text = "Select one of the following options:"
 	
 	# window title 
 	title = "Window Title GfG"

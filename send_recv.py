@@ -50,7 +50,7 @@ def recv_file(recv_path, client_socket):
 	received = client_socket.recv(BUFFER_SIZE)
 	print(received)
 	received = received.decode()
-
+	print(received)
 	filename, filesize, method = received.split(SEPARATOR)
 	# remove absolute path if there is
 	filename = os.path.basename(filename)
