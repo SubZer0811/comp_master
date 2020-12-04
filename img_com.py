@@ -21,7 +21,7 @@ def compressMe(file, verbose = False,k=75):
     # the value of quality variable  
     # and lesser the compression 
 
-    saved=filesavebox()
+    saved="./img_compressed"
     picture.save(saved,  
                  "JPEG",  
                  optimize = True,  
