@@ -5,13 +5,15 @@ import lzw
 import shannon
 import rle
 from img_com import compressMe
+import config
+import con
 
 HOST = '127.0.0.1'
 PORT = 45000
 
 s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s.bind((HOST,PORT))
+s.bind((config.HOST,config.PORT))
 
 s.listen(1)
 (client_socket,address)=s.accept()
