@@ -66,7 +66,7 @@ def compress_image():
 	upper=100
 
 	output=integerbox(text,title,d_int,lower,upper)
-	send_recv.send_file(file,sock,"img"+"{SEPARATOR}"+str(output))
+	send_recv.send_file(file,sock,"img"+"_"+str(output))
 
 
 def decompress():

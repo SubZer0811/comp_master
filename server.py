@@ -26,7 +26,7 @@ if(method[0:3]=="img"):
 	print(quality)
 	print("image comp")
 	result = compressMe("./recvd",False,int(quality))
-	#print(result)
+	print(result)
 
 elif(method[:5] == "comp_"):
 	
