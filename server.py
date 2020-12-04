@@ -1,9 +1,9 @@
 import socket
 import send_recv
 import huffman.compressor
-import lzw
-import shannon
-import rle
+import lzw.compressor
+import shannon.compressor
+import rle.compressor
 from img_com import compressMe
 import config
 import con
