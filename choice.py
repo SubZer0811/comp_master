@@ -24,6 +24,8 @@ def compress():
 
 	if(reply == "Text"):
 		compress_text()
+	elif reply=="Image":
+		compress_image()
 
 def compress_text():
 
@@ -49,7 +51,7 @@ def compress_image():
 	upper=100
 
 	output=integerbox(text,title,d_int,lower,upper)
-	send_recv.send_file(file,sock,"img"+"{SEPARATOR}"+str(output))
+	send_recv.send_file(file,sock,"img_"+str(output))
 
 
 def decompress():

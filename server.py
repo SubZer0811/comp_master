@@ -4,6 +4,7 @@ import huffman.compressor
 import lzw
 import shannon
 import rle
+from img_com import compressMe
 
 HOST = '127.0.0.1'
 PORT = 45002
@@ -18,7 +19,14 @@ s.listen(1)
 
 method = send_recv.recv_file("./recvd", client_socket)
 
-if(method[:5] == "comp_"):
+if(method[0:3]=="img"):
+	method,quality=method.split("_")
+	print(quality)
+	print("image comp")
+	result = compressMe("./recvd",False,int(quality))
+	#print(result)
+
+elif(method[:5] == "comp_"):
 	
 	if(method[5:] == "Huffman"):
 		result = huffman.compressor.compress("./recvd",".")
