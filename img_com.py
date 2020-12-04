@@ -26,7 +26,7 @@ def compressMe(file, verbose = False,k=75):
                  "JPEG",  
                  optimize = True,  
                  quality = k) 
-    return
+    return saved
   
 # Define a main function 
 def main(): 
@@ -51,6 +51,6 @@ def main():
     
     print("Done") 
   
-# Driver code 
-if __name__ == "__main__": 
-    main() 
+# # Driver code 
+# if __name__ == "__main__": 
+#     main() 

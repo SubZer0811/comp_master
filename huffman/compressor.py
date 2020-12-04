@@ -14,7 +14,7 @@ def compress(input_file, output_path):
         os.path.basename(input_file))
     output_filename = input_filename + '.huffman'
     output_file = os.path.join(output_path, output_filename)
-
+    print(output_file+" aa")
     with open(input_file, 'r') as f:
         data = f.read()
 

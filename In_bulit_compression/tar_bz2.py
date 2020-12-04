@@ -1,7 +1,7 @@
 # Python program to demonstrate command line arguments
 import sys
 import tarfile
-from tqdm import tqdm 
+from tqdm import tqdm #pip3 install tqdm
 # total arguments
 def compress(tar_file, members):
     """
