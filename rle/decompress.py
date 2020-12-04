@@ -1,4 +1,4 @@
-def decompress():
+def uncompress():
     enc = open("comp.txt", 'rb')
     dec = open('decomp.txt', 'wb')
 
