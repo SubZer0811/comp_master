@@ -28,6 +28,10 @@ def compress():
 		compress_text()
 	if(reply == "Image"):
 		compress_image()
+	if(reply == "Video"):
+		compress_vid()
+	if(reply == "Multiple Files"):
+		compress_multiple_files()
 
 def compress_text():
 
@@ -69,6 +73,11 @@ def compress_image():
 	send_recv.send_file(file,sock,"img"+"_"+str(output))
 	send_recv.recv_file("asdfasdfasdf.jpeg", sock)
 
+def compress_vid():
+	file = fileopenbox()
+
+	send_recv.send_file(file,sock,"vid")
+	send_recv.recv_file("vid_com.mp4", sock)
 
 def decompress():
 
@@ -83,7 +92,7 @@ def decompress():
 	if(reply == "Text"):
 		decompress_text()
 	if(reply == "Archive"):
-		decompress_multiple()
+		decompress_archive()
 
 	
 
@@ -94,15 +103,19 @@ def compress_multiple_files():
 	msg = "Select any one option"
 	mode = choicebox(msg, choices = choices)
 
-	if(mode == "bz2"):
-		compress_multiple_files_bz2()
-	if(mode == "gz"):
-		compress_multiple_files_gz()
-	if(mode == "xz"):
-		compress_multiple_files_xz()
-	send_recv.send_multiple_files(file_list, sock, f"comp_multi_{mode}")
+	# if(mode == "bz2"):
+	# 	compress_multiple_files_bz2()
+	# if(mode == "gz"):
+	# 	compress_multiple_files_gz()
+	# if(mode == "xz"):
+	# 	compress_multiple_files_xz()
+	send_recv.send_multiple_files(file_list, sock, f"multi_{mode}")
+	send_recv.recv_file('compressed.tar.'+mode, sock)
 	
-# def decompress_archive():
+def decompress_archive():
+	file = fileopenbox()
+	send_recv.send_file(file,sock,"decomp_archive")
+	send_recv.recv_file('', sock)
 
 
 

@@ -1,9 +1,9 @@
 # Python program to demonstrate command line arguments
-import sys
+import sys,os
 import tarfile
 from tqdm import tqdm #pip3 install tqdm
 # total arguments
-def compress(tar_file, members, comp_mode):
+def compressor(tar_file, comp_mode):
     """
     Adds files (`members`) to a tar_file and compress it
     """
@@ -11,31 +11,27 @@ def compress(tar_file, members, comp_mode):
     tar = tarfile.open(tar_file, mode="w:"+comp_mode)
     # with progress bar
     # set the progress bar
-    progress = tqdm(members)
-    for member in progress:
+    for member in os.listdir('./archive/'):
         # add file/folder/link to the tar file (compress)
-        tar.add(member)
+        tar.add('./archive/'+member,member)
         # set the progress description of the progress bar
-        progress.set_description(f"Compressing {member}")
     # close the file
     tar.close()
+    return tar_file
 
-def decompress(tar_file, path, comp_mode, members=None):
+def decompressor(tar_file, out_path, tar_mode):
     """
     Extracts `tar_file` and puts the `members` to `path`.
     If members is None, all members on `tar_file` will be extracted.
     """
-    tar = tarfile.open(tar_file, mode="r:"+comp_mode)
-    if members is None:
-        members = tar.getmembers()
+    tar = tarfile.open(tar_file, mode="r:"+tar_mode)
     # with progress bar
     # set the progress bar
-    progress = tqdm(members)
-    for member in progress:
-        tar.extract(member, path=path)
+    for member in tar.getmembers():
+        tar.extract(member, path=out_path)
         # set the progress description of the progress bar
-        progress.set_description(f"Extracting {member.name}")
     # or use this
     # tar.extractall(members=members, path=path)
     # close the file
     tar.close()
+    return out_path

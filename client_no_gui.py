@@ -23,12 +23,15 @@ def compress():
 	
 	# opening a choice box using our msg and choices 
 	# reply = choicebox(msg, choices = choices)
-	reply = "Image"
-
+	reply = "Video"
 	if(reply == "Text"):
 		compress_text()
 	if(reply == "Image"):
 		compress_image()
+	if(reply == "Video"):
+		compress_vid()
+	if(reply == "Multiple Files"):
+		compress_multiple_files()
 
 def compress_text():
 
@@ -54,25 +57,27 @@ def decompress_text():
 	
 	# opening a choice box using our msg and choices 
 	method = choicebox(msg, choices = choices)
-	time.sleep(1)
-	send_recv.send_file(file, sock, "decomp" + method)
-	# send_recv.recv_file('comp', sock)
+	send_recv.send_file(file, sock, "decomp_" + method)
+	send_recv.recv_file('comp', sock)
 
 def compress_image():
 
-	# file = fileopenbox()
-	file = "local_test_files/doom_org.jpeg"
+	file = fileopenbox()
 	text="Enter quality factor 10 - 100"
 	title="Image compression"
 	d_int = 75
 	lower = 10
 	upper=100
 
-	# output=integerbox(text,title,d_int,lower,upper)
-	output = 75
+	output=integerbox(text,title,d_int,lower,upper)
 	send_recv.send_file(file,sock,"img"+"_"+str(output))
-	send_recv.recv_file("asdfasdfasdf", sock)
+	send_recv.recv_file("asdfasdfasdf.jpeg", sock)
 
+def compress_vid():
+	# file = fileopenbox()
+	file = "local_test_files/video.mp4"
+	send_recv.send_file(file,sock,"vid")
+	send_recv.recv_file("vid_com.mp4", sock)
 
 def decompress():
 
@@ -86,23 +91,25 @@ def decompress():
 
 	if(reply == "Text"):
 		decompress_text()
-	if(reply == "Text"):
-		decompress_archive()
+	if(reply == "Archive"):
+		decompress_multiple()
 
 def compress_multiple_files():
 
-	file_list = fileopenbox(multiple=True)
+	# file_list = fileopenbox(multiple=True)
 	choices = ["bz2", "gz", "xz"]
 	msg = "Select any one option"
 	mode = choicebox(msg, choices = choices)
-
-	if(mode == "bz2"):
-		compress_multiple_files_bz2()
-	if(mode == "gz"):
-		compress_multiple_files_gz()
-	if(mode == "xz"):
-		compress_multiple_files_xz()
-	send_recv.send_multiple_files(file_list, sock, f"comp_multi_{mode}")
+	mode = "gz"
+	file_list = []
+	# if(mode == "bz2"):
+	# 	compress_multiple_files_bz2()
+	# if(mode == "gz"):
+	# 	compress_multiple_files_gz()
+	# if(mode == "xz"):
+	# 	compress_multiple_files_xz()
+	send_recv.send_multiple_files(file_list, sock, f"multi_{mode}")
+	# send_recv.recv_file('comp', sock)
 	
 # def decompress_archive():
 
@@ -132,7 +139,7 @@ if __name__ == "__main__":
 	# creating a button box 
 	# output = buttonbox(text, title, button_list)
 	output = "Compress"
-	
+
 	if(output == "Compress"):
 		compress()
 	elif(output == "Decompress"):
