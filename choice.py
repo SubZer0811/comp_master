@@ -2,9 +2,10 @@ from easygui import *
 import huffman.compressor
 import socket
 import send_recv
+import time
 
 HOST = '127.0.0.1'
-PORT = 45000
+PORT = 45002
 SEPARATOR = "<SEPARATOR>"
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -34,7 +35,9 @@ def compress_text():
 	
 	# opening a choice box using our msg and choices 
 	method = choicebox(msg, choices = choices)
-	send_recv.send_file(file, sock, method)
+	send_recv.send_file(file, sock, "comp_" + method)
+	time.sleep(1)
+	send_recv.recv_file("compressessasads", sock)
 
 def compress_image():
 
@@ -50,8 +53,30 @@ def compress_image():
 
 
 def decompress():
-	print("Inside Decompress")
-	pass
+
+	choices = ["Text", "Image", "Video", "Audio", "Multiple Files"]
+  
+	# mesaage / question to be asked
+	msg = "Select any one option"
+	
+	# opening a choice box using our msg and choices 
+	reply = choicebox(msg, choices = choices)
+
+	if(reply == "Text"):
+		decompress_text()
+
+def decompress_text():
+
+	file = fileopenbox()
+	choices = ["Huffman", "Shannon-Fano", "LZW", "RLE"]
+  
+	# mesaage / question to be asked
+	msg = "Select decompression Algorithm"
+	
+	# opening a choice box using our msg and choices 
+	method = choicebox(msg, choices = choices)
+	send_recv.send_file(file, sock, "decomp" + method)
+	# send_recv.recv_file('comp', sock)
 
 if __name__ == "__main__":
 	

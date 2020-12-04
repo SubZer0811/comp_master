@@ -20,9 +20,11 @@ def send_file(filename, s, TYPE='comp'):
 	with open(filename, "rb") as f:
 		while True:
 			# read the bytes from the file
+			print("send_test")
 			bytes_read = f.read(BUFFER_SIZE)
-			# print(bytes_read)
+			print(bytes_read)
 			if not bytes_read:
+				s.sendall(bytes_read)
 				# file transmitting is done
 				break
 			# we use sendall to assure transimission in 
@@ -45,9 +47,10 @@ def recv_file(recv_path, client_socket):
 	with open(recv_path, "wb") as f:
 		while True:
 			# read 1024 bytes from the socket (receive)
+			print("recv_test")
 			bytes_read = client_socket.recv(BUFFER_SIZE)
-			# print(bytes_read)
-			if not bytes_read:    
+			print(bytes_read)
+			if bytes_read == b'':    
 				# nothing is received
 				# file transmitting is done
 				break
