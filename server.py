@@ -80,8 +80,11 @@ else:
 		print("HERE!!")
 		print(f"METHOD = {method}\n{method[15:]}")
 		result = tar.tar.decompressor("./recvd","./archive/",method[15:])
+		send_recv.send_file(result, client_socket,"archive")
+		s.close()
+		exit(0)
 
-send_recv.send_file(result, client_socket, "archive")
+send_recv.send_file(result, client_socket)
 # send_recv.send_file()
 
 s.close()
