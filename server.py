@@ -37,10 +37,15 @@ if(method[0:3]=="img"):
 	print("image comp")
 	result = compressMe("./recvd",False,int(quality))
 	print(result)
-elif (method[0:3] == "vid"):
+elif(method[0:3]=="vid"):
 	ip="./recvd"
 	result="./compressed.mp4"
 	subprocess.run('ffmpeg -i '+ip+' -vcodec libx265 -crf 28 '+result,shell=True) 
+
+elif(method[0:3] == "aud"):
+	ip="./recvd"
+	result="./compressed.mp3"
+	subprocess.run('ffmpeg -i '+ip+' -map 0:a:0 -b:a 96k '+result,shell=True) 
 	
 elif(method[:5] == "comp_"):
 	
@@ -77,8 +82,6 @@ else:
 		result = tar.tar.decompressor("./recvd","./archive/",method[15:])
 
 send_recv.send_file(result, client_socket, "archive")
-
-
 # send_recv.send_file()
 
 s.close()

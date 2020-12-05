@@ -26,13 +26,14 @@ def compress():
 
 	if(reply == "Text"):
 		compress_text()
-	if(reply == "Image"):
+	elif(reply == "Image"):
 		compress_image()
-	if(reply == "Video"):
+	elif(reply == "Video"):
 		compress_vid()
-	if(reply == "Multiple Files"):
+	elif(reply == "Multiple Files"):
 		compress_multiple_files()
-
+	elif(reply == "Audio"):
+		compress_aud()
 def compress_text():
 
 	file = fileopenbox()
@@ -78,6 +79,12 @@ def compress_vid():
 
 	send_recv.send_file(file,sock,"vid")
 	send_recv.recv_file("vid_com.mp4", sock)
+
+def compress_aud():
+	file = fileopenbox()
+
+	send_recv.send_file(file,sock,"aud")
+	send_recv.recv_file("aud_com.mp3", sock)
 
 def decompress():
 
