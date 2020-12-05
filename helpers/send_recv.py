@@ -87,9 +87,9 @@ def recv_file(recv_path, client_socket):
 
 	return method+tar_mode
 
-def send_multiple_files(file_list, s):
+def send_multiple_files(file_list, s,TYPE="multi_"):
 
-	TYPE='multi_'
+	# TYPE='multi_'
 	print(f"Files to be sent:"+str(file_list)[1:-1])
 	n=str(len(file_list))
 	s.send((str(file_list)+f"{SEPARATOR}{n}{SEPARATOR}{TYPE}").encode('utf-8'))

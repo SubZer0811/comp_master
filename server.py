@@ -2,7 +2,7 @@ import socket
 import os
 import sys
 import subprocess
-import send_recv
+from helpers import send_recv
 import huffman.compressor
 import lzw.compressor
 import shannon.compressor
@@ -12,9 +12,9 @@ import lzw.decompressor
 import shannon.decompressor
 import rle.decompressor
 import tar.tar
-from img_com import compressMe
+from helpers.img_com import compressMe
 import config
-import con
+from helpers import con
 
 HOST = '127.0.0.1'
 PORT = 45000
@@ -60,6 +60,7 @@ elif(method[:5] == "comp_"):
 
 elif(method[:6] == "multi_"):
 	result = tar.tar.compressor("./archive.tar."+method[6:],method[6:])
+	# exit(0)
 
 # def compress(tar_file, members, comp_mode):
 # def decompress(tar_file, path, comp_mode, members=None):
@@ -81,10 +82,13 @@ else:
 		print(f"METHOD = {method}\n{method[15:]}")
 		result = tar.tar.decompressor("./recvd","./archive/",method[15:])
 		send_recv.send_file(result, client_socket,"archive")
+		os.system("rm -r ./archive")
 		s.close()
 		exit(0)
 
 send_recv.send_file(result, client_socket)
-# send_recv.send_file()
+
+os.system("rm ./recvd")
+os.system("rm ./" + result)
 
 s.close()
