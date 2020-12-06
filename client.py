@@ -6,12 +6,13 @@ import time
 import config
 from helpers import con
 
-# config.HOST = '127.0.0.1'
-# config.PORT = 45000
+HOST = '34.72.59.38'
+PORT = 47000
+
 SEPARATOR = "<SEPARATOR>"
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect((config.HOST, config.PORT))
+sock.connect((config.HOST,config.PORT))
 
 def compress():
 	print("Inside Compress")
